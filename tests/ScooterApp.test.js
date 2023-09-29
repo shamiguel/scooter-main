@@ -12,41 +12,56 @@ describe("registerUser method tests", () => {
     let response = scooterApp.registerUser("Joe Bloggs", "test123", 21);
     expect(response).toBeInstanceOf(User);
   });
+
+  test("Should properly record user into Regsitered Users", ()=>{
+    let user = scooterApp.registerUser("Milo", "meow", 100);
+    expect(scooterApp.registeredUsers["Milo"]).toEqual(user);
+  });
+
+  test("Throws an error if user is already registered", ()=>{
+    expect(()=>{
+      scooterApp.registerUser("Milo", "meow", 100).toThrow("already registered");
+    })
+  });
+
+  test("Throws an error if user is underage", ()=>{
+    expect(()=>{
+      scooterApp.registerUser("Milo", "meow", 2).toThrow("too young to register");
+    })
+  })
 });
 
 
 
 describe("login User", ()=>{
   let user;
-  beforeEach(()=>{
-    user = scooterApp.registerUser("Shami", "milo", 28);
-  })
+  user = scooterApp.registerUser("Shami", "milo", 28);
 
-  test("Should register a user if not already", ()=>{
+  test("Should login a user", ()=>{
+    expect(user).toBeInstanceOf(User);
     expect(user.loggedIn).toBe(false);
 
-    app.loginUser("Shami", "milo");
+    scooterApp.loginUser("Shami", "milo");
     expect(user.loggedIn).toBe(true);
   });
 
   test("Should throw an error if either credential is wrong", ()=>{
     expect(()=>{
-      app.loginUser("Shame", "Moli").toThrow("Username or password is incorrect")
+      console.log(scooterApp.registeredUsers)
+      scooterApp.loginUser("Shame", "Moli").toThrow("Username or password is incorrect")
     })
   });
 });
 
 describe("logout User", ()=>{
   let user;
-  beforeEach(()=>{
-    user = scooterApp.registerUser("Shami", "milo", 28);
-  });
+  user = scooterApp.registerUser("Sherman", "milo", 28);
 
   test("locates the registered user and calls its logout method", ()=>{
     user.login("milo");
     expect(user.loggedIn).toBe(true);
 
-    scooterApp.logoutUser("Shami");
+    scooterApp.logoutUser("Sherman");
     expect(user.loggedIn).toBe(false);
   });
 
@@ -93,7 +108,8 @@ describe("rentScooter", ()=>{
 
 describe("dockScooter", ()=>{
   test("locates a scooter and docks it",()=>{
-    let scoot = scooterApp.createScooter(central);
+    let user = scooterApp.registerUser("Shma", "milo", 28);
+    let scoot = scooterApp.createScooter("central");
     scooterApp.rentScooter(scoot, user);
     expect(scoot.station).toBe(null);
 

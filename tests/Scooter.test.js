@@ -15,15 +15,17 @@ describe("Scooter", ()=>{
 
   beforeEach(()=>{
     scoot = new Scooter("central");
+    scooter = new Scooter("central");
   });
 
   test("is initialized properly", ()=>{
     expect(scoot.station).toBe("central");
     expect(scoot.user).toBe(null);
-    expect(Scooter.nextSerial).toBe(1);
-    expect(scooter.serial).toBe(2);
-    expect(scooter.charge).toBe(100);
-    expect(scooter.isBroken).toBe(false);
+    expect(scoot.serial).toBe(2);
+    expect(scooter.serial).toBe(3);
+    expect(Scooter.nextSerial).toBe(4);
+    expect(scoot.charge).toBe(100);
+    expect(scoot.isBroken).toBe(false);
   })
 })
 
@@ -42,7 +44,7 @@ describe('scooter methods', () => {
   describe('rent', ()=>{
     test("accepts a user and undocks scooter", ()=>{
       let user = new User("Milo", "meow", 2);
-      scoot.user(user);
+      scoot.rent(user);
       expect(scoot.user).toBe(user);
       expect(scoot.station).toBe(null);
     });
@@ -62,16 +64,17 @@ describe('scooter methods', () => {
     })
   });
 
-  describe("requestRepair", ()=>{
-    test("after a 5 second interval, is repaired", ()=>{
-      bustedScoot.requestRepair();
+  describe("requestRepair", () => {
+    test("after a 5 second interval, is repaired", async ()=>{
+      await bustedScoot.requestRepair();
       expect(bustedScoot.isBroken).toBe(false);
     })
   })
   
   describe("recharge", ()=>{
-    test("incrementally updates Scooter's charge to 100", ()=>{
-      
+    test("incrementally updates Scooter's charge to 100", async ()=>{
+      //await bustedScoot.recharge();
+      //expect(bustedScoot.charge).toBe(100);
     })
   })
 
