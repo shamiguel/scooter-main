@@ -31,9 +31,13 @@ class Scooter{
     console.log("Request completed.")
   }
 
-  async recharge(){
+  recharge(){
+    setInterval(()=>{
+      if(this.charge < 100){
+        this.charge += 10;
+      }
+    }, 500)};
 
-  }
 }
 
 

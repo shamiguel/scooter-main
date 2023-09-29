@@ -32,14 +32,13 @@ describe("User Login", () => {
     expect(user1.loggedIn).toBe(true);
   });
 
-  test("should throw an error is password is wrong", ()=>{
+  test("should throw an error if password is wrong", ()=>{
     let incorrect = "bark";
     expect(()=>{
       user1.loggedIn(incorrect).toThrow("Password is incorrect");
     })
   })
-
-})
+});
 
 describe("User Logout", ()=>{
   let user1;

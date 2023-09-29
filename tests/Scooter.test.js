@@ -72,15 +72,8 @@ describe('scooter methods', () => {
   })
   
   describe("recharge", ()=>{
-    test("incrementally updates Scooter's charge to 100", async ()=>{
-      //await bustedScoot.recharge();
-      //expect(bustedScoot.charge).toBe(100);
+    test("incrementally updates Scooter's charge to 100", ()=>{
     })
   })
-
-
-  //requestRepair method
-
-  //charge method
 
 })
