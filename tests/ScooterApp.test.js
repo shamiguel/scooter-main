@@ -48,7 +48,11 @@ describe("login User", ()=>{
   test("Should throw an error if either credential is wrong", ()=>{
     expect(()=>{
       console.log(scooterApp.registeredUsers)
-      scooterApp.loginUser("Shame", "Moli").toThrow("Username or password is incorrect")
+      scooterApp.loginUser("Shami", "Moli").toThrow("Username or password is incorrect");
+    })
+    expect(()=>{
+      console.log(scooterApp.registeredUsers)
+      scooterApp.loginUser("Shamooo", "milo").toThrow("Username or password is incorrect");
     })
   });
 });

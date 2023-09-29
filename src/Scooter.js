@@ -30,14 +30,6 @@ class Scooter{
     this.isBroken = false;
     console.log("Request completed.")
   }
-
-  recharge(){
-    setInterval(()=>{
-      if(this.charge < 100){
-        this.charge += 10;
-      }
-    }, 500)};
-
 }
 
 

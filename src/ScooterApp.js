@@ -76,9 +76,6 @@ class ScooterApp {
     }else{
       throw new Error("scooter already rented")
     }
-
-   
-    
   };
 
   print(){
