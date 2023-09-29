@@ -48,7 +48,8 @@ class ScooterApp {
   createScooter(station){ 
     if(Object.keys(this.stations).includes(station)){
       const scoot = new Scooter(station);
-      console.log("created new scooter");
+      this.stations[station].push(scoot);
+      console.log("created new scooter", JSON.stringify(this.stations));
       return scoot;
     }else{
       throw new Error("no such station error");
@@ -66,15 +67,17 @@ class ScooterApp {
   };
 
   rentScooter(scooter, user){
-    for(const station in this.stations){
-      if(station.includes(scooter)){
-        let index = station.indexOf(scooter);
-        
-        scooter.rent(user);
-        console.log("scooter is rented")
-        return;
-      }
+    if(scooter.station !== null){
+      let station = scooter.station//pull station from scooter
+      let scooterArray = this.stations[station]//find the scooter array of associated station
+      let index = scooterArray.indexOf(scooter);//get index of scooter in the array
+      scooterArray.splice(index, 1);//remove it;
+      scooter.rent(user);//Rent it to user;
+    }else{
+      throw new Error("scooter already rented")
     }
+
+   
     
   };
 

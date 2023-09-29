@@ -88,9 +88,11 @@ describe("create scooter", ()=>{
 })
 
 describe("rentScooter", ()=>{
+  let user = scooterApp.registerUser("Shoma", "milo", 28);
   test("locates given scooter at one of the station, removes it, and rents it to a user",()=>{
     let scoot = scooterApp.createScooter("central");
     scooterApp.rentScooter(scoot, user);
+    expect(scooterApp.stations["central"].includes(scoot)).toBe(false);
     expect(scoot.user).toBe(user);
     expect(scoot.station).toBe(null);
   });
@@ -116,6 +118,15 @@ describe("dockScooter", ()=>{
     scooterApp.dockScooter(scoot, "central");
     expect(scoot.station).toBe("central");
     expect(scoot.user).toBe(null);
+  });
+
+  test("throws an error if station does not exist", ()=>{
+    let scoot = scooterApp.createScooter("central");
+
+    expect(scoot).toBeInstanceOf(Scooter);
+    expect(()=>{
+      scooterApp.dockScooter(scoot, "nowhere").toThrow("station does not exist")
+    })
   })
 })
 
